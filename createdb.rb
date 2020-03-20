@@ -11,7 +11,7 @@ DB.create_table! :restaurants do
   String :location
 end
 DB.create_table! :reviews do
-  foreign_key :event_id
+  foreign_key :restaurant_id
   foreign_key :user_id
   String :comments, text: true
 end
@@ -30,3 +30,5 @@ restaurants_table.insert(title: "Pequod's Pizza (Chicago)",
 
 restaurants_table.insert(title: "Lou Malnati's Pizzeria (Evanston)", 
                     location: "1850 Sherman Ave, Evanston, IL 60201")
+
+puts "Successfully initialized DB!"
