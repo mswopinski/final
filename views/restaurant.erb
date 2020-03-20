@@ -30,20 +30,21 @@
                 <a href="/logins/new" class="btn btn-danger">Please sign in to leave a review</a>
             <% end %>
         </p>
+        <div class="container mt-5">
+            <h1>Where 2?</h1>
+            <iframe
+                width="1000"
+                height="450"
+                frameborder="0" style="border:0"
+                src=<%= @embedded_map_url %> allowfullscreen>
+                src="https://www.google.com/maps/embed/v1/place?key=<%=@maps_api_key%>
+                    &q=<%= @lat_long %>&zoom=6" allowfullscreen>
+             </iframe>
+        </div>
     </div>
     <div class="col-sm-3">
         <h3>How many reviews so far?</h3>
         <p><%= @review_count %></p>
         <h3>Location</h3>
-        <div class="container mt-5">
-            <h1>Where 2?</h1>
-            <iframe
-                width="600"
-                height="450"
-                frameborder="0" style="border:0"
-                src="https://www.google.com/maps/embed/v1/place?key=GOOGLE_MAPS_API_KEY
-                &q=<%= @lat_long %>&zoom=6" allowfullscreen>
-             </iframe>
-        </div>
     </div>
 </div>

@@ -5,7 +5,7 @@ require "sequel"                                                                
 require "logger"                                                                      #
 require "twilio-ruby"                                                                 #
 require "bcrypt"
-require "geocoder"                                                                      #
+require "geocoder"                                                                    #
 connection_string = ENV['DATABASE_URL'] || "sqlite://#{Dir.pwd}/development.sqlite3"  #
 DB ||= Sequel.connect(connection_string)                                              #
 DB.loggers << Logger.new($stdout) unless DB.loggers.size > 0                          #
@@ -18,6 +18,12 @@ after { puts; }                                                                 
 restaurants_table = DB.from(:restaurants)
 reviews_table = DB.from(:reviews)
 users_table = DB.from(:users)
+
+# put your API credentials here (found on your Twilio dashboard)
+account_sid = ENV["TWILIO_ACCOUNT_SID"]
+auth_token = ENV["TWILIO_AUTH_TOKEN"]
+maps_api_key = ENV["GOOGLE_MAPS_API_KEY"]
+embedded_map_url_base = "https://www.google.com/maps/embed/v1/place?key="
 
 before do
     @current_user = users_table.where(id: session["user_id"]).to_a[0]
@@ -44,8 +50,16 @@ get "/restaurants/:id" do
     @reviews = reviews_table.where(restaurant_id: @restaurant[:id]).to_a
     @review_count = reviews_table.count
 
-    @map = 
+    results = Geocoder.search(@restaurant[:location])
+    # lat_long = results.first.coordinates # => [lat, long]
+    # "#{lat_long[0]} #{lat_long[1]}"
 
+    # @lat = rand(-90.0..90.0)
+    # @long = rand(-180.0..180.0)
+    @lat_long = "#{results.first.coordinates[0]},#{results.first.coordinates[1]}"
+
+    # @embedded_map_url = "#{embedded_map_url_base}#{maps_api_key}&q=#{@restaurant[:location]}&zoom=6"
+    print @embedded_map_url
     view "restaurant"
 end
 
