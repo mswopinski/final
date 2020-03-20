@@ -3,6 +3,7 @@
 
         <h1><%= @restaurant[:title] %></h1>
         <p><%= @restaurant[:location] %></p>
+        <p><%= @restaurant[:phone] %></p>
 
         <% for review in @reviews %>
             <div class="media">
@@ -32,17 +33,19 @@
 
     </div>
 
+    <!-- infobar on right-hand side -->
     <div class="col-sm-4">
         <h3>How many reviews so far?</h3>
         <p><%= @review_count %></p>
-        <h3>Location</h3>
-        <div class="container mt-5">
+        
+        <div cls dfsd ss="google-maps">
             <iframe
-                width="350"
-                height="300"
-                frameborder="0" style="border:0"
-                src="https://www.google.com/maps/embed/v1/place?key=<%= @maps_api_key %>
-                    &q=<%= @lat_long %>&zoom=15" allowfullscreen>
+                width="400"
+                height="500"
+                frameborder="0" 
+                style="border:0"
+                src="https://www.google.com/maps/embed/v1/place?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>
+                    &q=<%= @map_q %>&zoom=15" allowfullscreen>
             </iframe>
         </div>
     </div>

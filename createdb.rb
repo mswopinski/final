@@ -23,6 +23,12 @@ DB.create_table! :users do
   String :password
 end
 
+DB.create_table! :admins do
+  primary_key :id
+  String :name
+  String :phone
+end
+
 # Insert initial (seed) data
 restaurants_table = DB.from(:restaurants)
 
@@ -31,5 +37,10 @@ restaurants_table.insert(title: "Pequod's Pizza (Chicago)",
 
 restaurants_table.insert(title: "Lou Malnati's Pizzeria (Evanston)", 
                     location: "1850 Sherman Ave, Evanston, IL 60201")
+
+admins_table = DB.from(:admins)
+
+admins_table.insert(name: "Mick Wopinski", 
+                    phone: "+17738526425")
 
 puts "Successfully initialized DB!"
