@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-sm-9">
+    <div class="col-sm-8">
 
         <h1><%= @restaurant[:title] %></h1>
         <p><%= @restaurant[:location] %></p>
@@ -22,7 +22,6 @@
             </div>
         <% end %>
 
-
         <p class="mt-5">
             <% if @current_user %>
                 <a href="/restaurants/<%= @restaurant[:id] %>/reviews/new" class="btn btn-primary">Review</a>
@@ -30,20 +29,21 @@
                 <a href="/logins/new" class="btn btn-danger">Please sign in to leave a review</a>
             <% end %>
         </p>
-        <div class="container mt-5">
-            <h1>Where 2?</h1>
-            <iframe
-                width="1000"
-                height="450"
-                frameborder="0" style="border:0"
-                src="https://www.google.com/maps/embed/v1/place?key=<%=@maps_api_key%>
-                    &q=<%= @lat_long %>&zoom=6" allowfullscreen>
-             </iframe>
-        </div>
+
     </div>
-    <div class="col-sm-3">
+
+    <div class="col-sm-4">
         <h3>How many reviews so far?</h3>
         <p><%= @review_count %></p>
         <h3>Location</h3>
+        <div class="container mt-5">
+            <iframe
+                width="350"
+                height="300"
+                frameborder="0" style="border:0"
+                src="https://www.google.com/maps/embed/v1/place?key=<%= @maps_api_key %>
+                    &q=<%= @lat_long %>&zoom=15" allowfullscreen>
+            </iframe>
+        </div>
     </div>
 </div>

@@ -22,7 +22,7 @@ users_table = DB.from(:users)
 # put your API credentials here (found on your Twilio dashboard)
 account_sid = ENV["TWILIO_ACCOUNT_SID"]
 auth_token = ENV["TWILIO_AUTH_TOKEN"]
-maps_api_key = ENV["GOOGLE_MAPS_API_KEY"]
+@maps_api_key = ENV["GOOGLE_MAPS_API_KEY"]
 embedded_map_url_base = "https://www.google.com/maps/embed/v1/place?key="
 
 before do
@@ -49,6 +49,8 @@ get "/restaurants/:id" do
 
     @reviews = reviews_table.where(restaurant_id: @restaurant[:id]).to_a
     @review_count = reviews_table.count
+
+    pp @maps_api_key
 
     results = Geocoder.search(@restaurant[:location])
     # lat_long = results.first.coordinates # => [lat, long]
