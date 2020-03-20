@@ -11,6 +11,7 @@ DB.create_table! :restaurants do
   String :location
 end
 DB.create_table! :reviews do
+  primary_key :id
   foreign_key :restaurant_id
   foreign_key :user_id
   String :comments, text: true
