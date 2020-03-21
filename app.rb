@@ -22,7 +22,11 @@ users_table = DB.from(:users)
 # put your API credentials here (found on your Twilio dashboard)
 account_sid = ENV['TWILIO_ACCOUNT_SID']
 auth_token = ENV['TWILIO_AUTH_TOKEN']
+client = Twilio::REST::Client.new(ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN'])
 @maps_api_key = ENV['GOOGLE_MAPS_API_KEY']
+@twilio_phone = "+12057723880"  
+
+
 
 before do
     @current_user = users_table.where(id: session["user_id"]).to_a[0]
@@ -138,6 +142,12 @@ post "/users/create" do
     if existing_user
         view "error"
     else
+        client.messages.create(
+            from: "+12057723880",
+            to: "+1#{params["phone"].split("-")}",
+            body: "Thanks for creating your Whelp! account!"
+        )
+
         users_table.insert(
             name: params["name"],
             email: params["email"],
